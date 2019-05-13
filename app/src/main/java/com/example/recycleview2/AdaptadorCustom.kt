@@ -10,7 +10,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import java.util.ArrayList
 
-class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener): RecyclerView.Adapter<AdaptadorCustom.ViewHolder>() {
+class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, var  longClickListener: LongClickListener): RecyclerView.Adapter<AdaptadorCustom.ViewHolder>() {
     var items: ArrayList<Platillo>?= null
 
     init {
@@ -19,7 +19,7 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener): 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdaptadorCustom.ViewHolder {
         val vista = LayoutInflater.from(parent.context).inflate(R.layout.template_platillo,parent,false)
-        val viewHolder = ViewHolder(vista,listener)
+        val viewHolder = ViewHolder(vista,listener,longClickListener)
 
         return viewHolder
     }
@@ -37,7 +37,8 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener): 
 
     }
 
-    class ViewHolder(vista:View, listener: ClickListener): RecyclerView.ViewHolder(vista),View.OnClickListener{
+    class ViewHolder(vista:View, listener: ClickListener, longClickListener: LongClickListener): RecyclerView.ViewHolder(vista),View.OnClickListener, View.OnLongClickListener{
+
 
 
         var vista = vista
@@ -46,18 +47,28 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener): 
         var precio:TextView?= null
         var rating:RatingBar?= null
         var listener:ClickListener? = null
+        var longListener:LongClickListener? = null
 
         init {
             foto = vista.findViewById(R.id.ivfoto)
             nombre = vista.findViewById(R.id.tvNombre)
             precio = vista.findViewById(R.id.tvPrecio)
             rating = vista.findViewById(R.id.tvRating)
+
             this.listener = listener
+            this.longListener = longClickListener
+
             vista.setOnClickListener(this)
+            vista.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View?) {
             this.listener?.onClick(v!!, adapterPosition)
+        }
+
+        override fun onLongClick(v: View?): Boolean {
+            this.longListener?.longClilck(v!!,adapterPosition)
+            return true
         }
     }
 }

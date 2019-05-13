@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import java.util.ArrayList
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         val platillos = ArrayList<Platillo>()
 
 
-        platillos.add(Platillo("Platillo 1", 250.0, 3.0F, R.drawable.im1  ))
-        platillos.add(Platillo("Platillo 2", 200.0, 4.0F, R.drawable.im2  ))
-        platillos.add(Platillo("Platillo 3", 150.0, 5.0F,R.drawable.im3  ))
-        platillos.add(Platillo("Platillo 4", 50.0, 2.5F, R.drawable.im4  ))
+        platillos.add(Platillo("Imagen 1", 250.0, 3.0F, R.drawable.im1  ))
+        platillos.add(Platillo("Imagen 2", 200.0, 4.0F, R.drawable.im2  ))
+        platillos.add(Platillo("Imagen 3", 150.0, 5.0F,R.drawable.im3  ))
+        platillos.add(Platillo("Imagen 4", 50.0, 2.5F, R.drawable.im4  ))
 
 
         lista = findViewById(R.id.lista)
@@ -39,7 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         adaptador = AdaptadorCustom(platillos, object:ClickListener{
             override fun onClick(vista: View, index: Int) {
-               Toast.makeText(applicationContext, platillos.get(index).nombre,  Toast.LENGTH_SHORT).show()
+               Toast.makeText(applicationContext, "Se presiono la "+platillos.get(index).nombre,  Toast.LENGTH_SHORT).show()
+            }
+
+        }, object: LongClickListener{
+            override fun longClilck(vista: View, index: Int) {
+                Toast.makeText(applicationContext, "Se dejo presionado la "+platillos.get(index).nombre,  Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -50,12 +56,12 @@ class MainActivity : AppCompatActivity() {
            for(i in 1..300000000){
            }
             swipeToRefresh.isRefreshing=false
-            platillos.add(Platillo("Platillo 5", 750.0, 1.5F,R.drawable.im5  ))
-            platillos.add(Platillo("Platillo 6", 250.0, 3.0F, R.drawable.im6  ))
-            platillos.add(Platillo("Platillo 7", 200.0, 4.0F, R.drawable.im7  ))
-            platillos.add(Platillo("Platillo 8", 150.0, 5.0F,R.drawable.im8  ))
-            platillos.add(Platillo("Platillo 9", 50.0, 2.5F, R.drawable.im9  ))
-            platillos.add(Platillo("Platillo 10", 750.0, 1.5F,R.drawable.im10  ))
+            platillos.add(Platillo("Imagen 5", 750.0, 1.5F,R.drawable.im5  ))
+            platillos.add(Platillo("Imagen 6", 250.0, 3.0F, R.drawable.im6  ))
+            platillos.add(Platillo("Imagen 7", 200.0, 4.0F, R.drawable.im7  ))
+            platillos.add(Platillo("Imagen 8", 150.0, 5.0F,R.drawable.im8  ))
+            platillos.add(Platillo("Imagen 9", 50.0, 2.5F, R.drawable.im9  ))
+            platillos.add(Platillo("Imagen 10", 750.0, 1.5F,R.drawable.im10  ))
             adaptador?.notifyDataSetChanged()
         }
     }

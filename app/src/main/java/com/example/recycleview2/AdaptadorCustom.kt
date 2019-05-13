@@ -12,6 +12,7 @@ import java.util.ArrayList
 
 class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, var  longClickListener: LongClickListener): RecyclerView.Adapter<AdaptadorCustom.ViewHolder>() {
     var items: ArrayList<Platillo>?= null
+    var multiSeleccion= false
 
     init {
         this.items=items
@@ -34,8 +35,20 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, v
         holder.nombre?.text = item?.nombre
         holder.precio?.text = "$" + item?.precio.toString()
         holder.rating?.rating = item?.rating!!
+    }
+
+    fun iniciarActionMode(){
+        multiSeleccion = true
+    }
+    fun destruirActionMode(){
+        multiSeleccion = false
+        notifyDataSetChanged()
+    }
+    fun terminarAccionMode(){
+        multiSeleccion = false
 
     }
+
 
     class ViewHolder(vista:View, listener: ClickListener, longClickListener: LongClickListener): RecyclerView.ViewHolder(vista),View.OnClickListener, View.OnLongClickListener{
 

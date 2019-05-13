@@ -43,6 +43,14 @@ class MainActivity : AppCompatActivity() {
 
         val call = object : ActionMode.Callback{
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                when(item?.itemId){
+                    R.id.iEliminar ->{
+                        //Toast.makeText(applicationContext, "Eliminar objetos", Toast.LENGTH_SHORT).show()
+                        adaptador?.eliminarSeleccionados()
+                    }
+                    else ->{return true}
+                }
+
                 adaptador?.terminarAccionMode()
                 mode?.finish()
                 isActionMode = false
@@ -97,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         val swipeToRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeToRefresh)
         swipeToRefresh.setOnRefreshListener {
-           for(i in 1..300000000){
+           for(i in 1..200000000){
            }
             swipeToRefresh.isRefreshing=false
             platillos.add(Platillo("Imagen 5", 750.0, 1.5F,R.drawable.im5  ))

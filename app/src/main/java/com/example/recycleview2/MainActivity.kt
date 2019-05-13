@@ -76,8 +76,10 @@ class MainActivity : AppCompatActivity() {
                 if(!isActionMode){
                     startActionMode(call)
                     isActionMode=true
+                    adaptador?.seleccionarItem(index)
                 }else{
                     //hacer sellecciones
+                    adaptador?.seleccionarItem(index)
                 }
             }
 

@@ -1,6 +1,7 @@
 package com.example.recycleview2
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,12 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, v
     var items: ArrayList<Platillo>?= null
     var multiSeleccion= false
 
+    var itemsSeleccionados:ArrayList<Int>? = null
+    val viewHolder: ViewHolder?= null
+
     init {
         this.items=items
+        itemsSeleccionados = ArrayList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdaptadorCustom.ViewHolder {
@@ -35,6 +40,12 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, v
         holder.nombre?.text = item?.nombre
         holder.precio?.text = "$" + item?.precio.toString()
         holder.rating?.rating = item?.rating!!
+
+        if(itemsSeleccionados?.contains(position)!!){
+            holder.vista.setBackgroundColor(Color.LTGRAY)
+        }else{
+            holder.vista.setBackgroundColor(Color.WHITE)
+        }
     }
 
     fun iniciarActionMode(){
@@ -42,11 +53,26 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, v
     }
     fun destruirActionMode(){
         multiSeleccion = false
+        itemsSeleccionados?.clear()
         notifyDataSetChanged()
     }
     fun terminarAccionMode(){
+        for (item in itemsSeleccionados!!){
+            itemsSeleccionados?.remove(item)
+        }
         multiSeleccion = false
+        notifyDataSetChanged()
+    }
+    fun seleccionarItem(index:Int){
+        if(multiSeleccion){
+            if(itemsSeleccionados?.contains(index)!!){
+                itemsSeleccionados?.remove(index)
+            }else{
+                itemsSeleccionados?.add(index)
+            }
 
+            notifyDataSetChanged()
+        }
     }
 
 

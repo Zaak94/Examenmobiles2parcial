@@ -75,6 +75,10 @@ class AdaptadorCustom( items:ArrayList<Platillo>, var listener: ClickListener, v
         }
     }
 
+    fun obtenerNumeroElementosSeleccionados():Int{
+        return itemsSeleccionados?.count()!!
+    }
+
 
     class ViewHolder(vista:View, listener: ClickListener, longClickListener: LongClickListener): RecyclerView.ViewHolder(vista),View.OnClickListener, View.OnLongClickListener{
 

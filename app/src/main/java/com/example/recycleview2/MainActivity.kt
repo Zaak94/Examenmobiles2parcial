@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     var layoutManager:RecyclerView.LayoutManager? = null
 
     var isActionMode = false
+    var actionMode:ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +52,13 @@ class MainActivity : AppCompatActivity() {
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
                 // inicializa action mode
                 adaptador?.iniciarActionMode()
+                actionMode = mode
+                menuInflater.inflate(R.menu.menu_contextual, menu!!)
                 return true
             }
 
             override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+               mode?.title = "0 seleccionados"
                 return false
             }
 
@@ -81,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                     //hacer sellecciones
                     adaptador?.seleccionarItem(index)
                 }
+                actionMode?.title = adaptador?.obtenerNumeroElementosSeleccionados().toString()+" seleccionados"
             }
 
         })

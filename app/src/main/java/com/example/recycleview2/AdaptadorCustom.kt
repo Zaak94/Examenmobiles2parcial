@@ -34,7 +34,7 @@ class AdaptadorCustom(var contexto:Context, items:ArrayList<Platillo>): Recycler
         holder.nombre?.text = item?.nombre
         holder.precio?.text = "$" + item?.precio.toString()
         holder.rating?.rating = item?.rating!!
-
+        ///hola
 
     }
 
